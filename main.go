@@ -60,25 +60,17 @@ func SendData(data WaterWind) error {
 }
 
 func main() {
-	// Seed untuk random number
-
-	// K
-	// Ticker untuk memperbarui data setiap 15 detik
 	ticker := time.NewTicker(15 * time.Second)
 	defer ticker.Stop()
 
 	for {
 		select {
 		case <-ticker.C:
-			// Generate angka acak untuk water dan wind
 			water := rand.Intn(100) + 1
 			wind := rand.Intn(100) + 1
 
-			// Tentukan status
 			waterStatus := WaterStatus(water)
 			windStatus := WindStatus(wind)
-
-			// Buat objek WeatherData untuk database
 
 			data := WaterWind{
 				Water:       water,
@@ -87,7 +79,6 @@ func main() {
 				WindStatus:  windStatus,
 			}
 
-			// Kirim data ke API
 			err := SendData(data)
 			if err != nil {
 				log.Printf("Error sending data to API: %v", err)
